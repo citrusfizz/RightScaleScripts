@@ -14,7 +14,7 @@ password = STDIN.noecho(&:gets).chomp
 puts "Enter the account number to query"
 accountn = gets.to_i
 #instantiate RAC Object
-@client = RightApi::Client.new(:email => email, :password => password, :account_id => accountn)
+@client = RightApi::Client.new(:email => email, :password => password, :account_id => accountn, :timeout => nil)
 
 
 puts ""
