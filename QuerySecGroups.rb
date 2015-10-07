@@ -19,30 +19,30 @@ accountn = gets.to_i
 
 puts ""
 puts ""
-s = @client.clouds.index
-s.each do |l|
-  puts "Cloud: " + l.name
-  l.security_groups.index.each do |r|
-    puts "  Security Group Name: " + r.name
-    sgroup = r.show.links[1]['href'].split("/")[5]
-    snetwork = r.show.links[2]['href'].split("/")[3]
-    puts "  Link: " + "https://us-4.rightscale.com/acct/" + accountn.to_s + "/network_manager#networks/" + snetwork + "/security_groups/" + sgroup
+allClouds = @client.clouds.index
+allClouds.each do |cloud|
+  puts "Cloud: " + cloud.name
+  cloud.security_groups.index.each do |secGroup|
     i=0 
-    r.security_group_rules.index.each do |g|
+    secGroup.security_group_rules.index.each do |rule|
       begin
-        if g.show.direction === "ingress"
+       if rule.show.direction === "ingress"
+         puts "  Security Group Name: " + secGroup.name
+         sgroup = secGroup.show.links[1]['href'].split("/")[5]
+         snetwork = secGroup.show.links[2]['href'].split("/")[3]
+         puts "  Link: " + "https://us-4.rightscale.com/acct/" + accountn.to_s + "/network_manager#networks/" + snetwork + "/security_groups/" + sgroup
          i=i+1
          puts ""
          puts "    Rule ingress: " + i.to_s
-         puts "      Source Type: " + g.show.source_type
-         puts "      CIDR IP: " + g.show.cidr_ips
-         puts "      Protocol: " + g.show.protocol
-         if g.show.protocol != "all"
+         puts "      Source Type: " + rule.show.source_type
+         puts "      CIDR IP: " + rule.show.cidr_ips
+         puts "      Protocol: " + rule.show.protocol
+         if rule.show.protocol != "all"
            puts "      Start Port | End Port: "
-           puts "       " + g.show.start_port + "             " + g.show.end_port
+           puts "       " + rule.show.start_port + "             " + rule.show.end_port
          end
 
-        end
+       end
       rescue => e
       next
       end

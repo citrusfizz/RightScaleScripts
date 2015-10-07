@@ -8,8 +8,8 @@ require 'launchy'
 
 # CHANGE THIS AUTHENTICATION !!
 
-email = ''
-password = ''
+email = 'curtis.joslin@rightscale.com'
+password = 'Newuser1'
 
 
 # Handel the Inputs
@@ -33,7 +33,7 @@ req_auth['X_API_VERSION'] = '1.5'
 req_auth.set_form_data('email' => "#{email}", 'password' => "#{password}",'account_href' => "#{masteraccount}", )
 do_auth = https_auth.request(req_auth)  #perform the authentication to get the cookie
 cookie = do_auth.response['set-cookie']  #save the cookie from the response
-
+puts do_auth.response['set-cookie']
 #Use cookie to authenticate and observer client account
 uri_obs = URI.parse('https://us-3.rightscale.com/global//admin_accounts/' + account.to_s + '/access')
 https_obs = Net::HTTP.new(uri_obs.host,uri_obs.port)
