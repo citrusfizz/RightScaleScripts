@@ -10,20 +10,25 @@ creds[:account] = File.basename(creds[:api_url])
 # Figure out url to hit:
 creds[:api_url] = "https://"+URI.parse(creds[:api_url]).host
 
-@endpoint = URI.parse(creds[:api_url]).host
+urltest = ARGV[1]
+if urltest === "us-4"
 
+@endpoint = "us-4.rightscale.com"
+end
+if urltest === "us-3"
+@endpoint = "us-3.rightscale.com"
+end
 
 accountn = ARGV[0]
 credsapi = creds[:api_url]
 email = creds[:user]
 pass = creds[:pass]
 
-@endpoint = URI.parse(credsapi).host
+#@endpoint = URI.parse(credsapi).host
 
 @client = RightApi::Client.new(:email => email, :password => pass,
                               :account_id => accountn, :api_url => credsapi,
                               :timeout => nil)
-
 def api16_call(query)
 
   get  = Net::HTTP::Get.new(query)
