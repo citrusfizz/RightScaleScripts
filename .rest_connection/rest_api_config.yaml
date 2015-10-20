@@ -1,0 +1,10 @@
+:ssh_keys:
+- ~/.ssh/id_rsa
+
+:user: curtis.joslin@rightscale.com
+:pass: PASSWORD
+
+#PRODUCTION
+:api_url: https://us-4.rightscale.com/api/acct/76722
+:common_headers:
+ X_API_VERSION: "1.0"
