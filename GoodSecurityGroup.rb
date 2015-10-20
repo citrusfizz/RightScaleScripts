@@ -12,7 +12,17 @@ creds[:api_url] = "https://"+URI.parse(creds[:api_url]).host
 
 @endpoint = URI.parse(creds[:api_url]).host
 
-@client = RightApi::Client.new(:email => creds[:user], :password => creds[:pass], :account_id => creds[:account], :api_url => creds[:api_url], :timeout => nil)
+
+accountn = ARGV[0]
+credsapi = creds[:api_url]
+email = creds[:user]
+pass = creds[:pass]
+
+@endpoint = URI.parse(credsapi).host
+
+@client = RightApi::Client.new(:email => email, :password => pass,
+                              :account_id => accountn, :api_url => credsapi,
+                              :timeout => nil)
 
 
 allClouds = @client.clouds.index
