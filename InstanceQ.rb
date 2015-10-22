@@ -10,14 +10,8 @@ creds[:account] = File.basename(creds[:api_url])
 # Figure out url to hit:
 creds[:api_url] = "https://"+URI.parse(creds[:api_url]).host
 
-urltest = ARGV[1]
-if urltest === "us-4"
 
-@endpoint = "us-4.rightscale.com"
-end
-if urltest === "us-3"
-@endpoint = "us-3.rightscale.com"
-end
+@endpoint = ARGV[1]
 
 accountn = ARGV[0]
 credsapi = creds[:api_url]
@@ -74,12 +68,13 @@ endlink.slice! "/api"
 cloud = i['links']['cloud']['name']
 network = i['networks'].first['href'].split("/").last
 secgroup = dd['href'].split("/").last
+resourceid = i['resource_uid']
 sg = i['links']
 #Build the url
 #https://my.rightscale.com/acct/9202/servers/1201734003
 url = credsapi+"/acct/"+accountn+endlink
 
-puts "#{cloud},#{i['name']},#{url},#{dd['name']},#{network},#{secgroup}"
+puts "#{cloud},#{i['name']},#{resourceid},#{url},#{dd['name']},#{network},#{secgroup}"
 end
 }
 
